@@ -1,66 +1,95 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Home, Pencil, Globe, Mail } from 'lucide-react';
+import { Separator } from './ui/separator';
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+    // In a real implementation, you would apply the theme change to the document
+  };
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 md:px-12 py-4
-                ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md' : 'bg-transparent'}`}
-    >
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <a href="#" className="flex items-center space-x-2">
-          <span className="text-warmOrange font-bold text-2xl">MatchMyPup</span>
-        </a>
-        
-        {/* Desktop menu */}
-        <div className="hidden md:flex space-x-8">
-          <a href="#home" className="text-charcoal hover:text-warmOrange transition-colors">Home</a>
-          <a href="#how-it-works" className="text-charcoal hover:text-warmOrange transition-colors">How It Works</a>
-          <a href="#features" className="text-charcoal hover:text-warmOrange transition-colors">Features</a>
-          <a href="#testimonials" className="text-charcoal hover:text-warmOrange transition-colors">Testimonials</a>
+    <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50">
+      <div className="relative flex h-16 items-center justify-center px-4 text-foreground">
+        <div className="supports-backdrop-blur:bg-white/10 mx-auto mt-8 flex h-[58px] w-max justify-center gap-2 rounded-2xl border p-2 backdrop-blur-md items-center bg-white/90 shadow-lg">
+          {/* Home Link */}
+          <div className="flex aspect-square cursor-pointer items-center justify-center rounded-full" style={{ padding: '8px', width: '58.8571px', height: '58.8571px' }}>
+            <Link
+              aria-label="Home"
+              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground size-12 rounded-full text-foreground"
+              to="/"
+            >
+              <Home className="size-4" />
+            </Link>
+          </div>
+
+          {/* About Link */}
+          <div className="flex aspect-square cursor-pointer items-center justify-center rounded-full" style={{ padding: '8px', width: '54.2857px', height: '54.2857px' }}>
+            <Link
+              aria-label="About"
+              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground size-12 rounded-full text-foreground"
+              to="/about"
+            >
+              <Pencil className="size-4" />
+            </Link>
+          </div>
+
+          <Separator orientation="vertical" className="h-8" />
+
+          {/* Website Link */}
+          <div className="flex aspect-square cursor-pointer items-center justify-center rounded-full" style={{ padding: '8px', width: '46.1429px', height: '46.1429px' }}>
+            <a
+              aria-label="Website"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground size-12 rounded-full text-foreground"
+              href="https://matchmypup.com/"
+            >
+              <Globe className="size-4" />
+            </a>
+          </div>
+
+          {/* Contact Link */}
+          <div className="flex aspect-square cursor-pointer items-center justify-center rounded-full" style={{ padding: '8px', width: '40px', height: '40px' }}>
+            <a
+              aria-label="Send Email"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground size-12 rounded-full text-foreground"
+              href="mailto:info@matchmypup.com"
+            >
+              <Mail className="size-4" />
+            </a>
+          </div>
+
+          <Separator orientation="vertical" className="h-8" />
+
+          {/* Theme Toggle */}
+          <div className="flex aspect-square cursor-pointer items-center justify-center rounded-full" style={{ padding: '8px', width: '40px', height: '40px' }}>
+            <button 
+              className="theme-toggle p-2 rounded-lg"
+              onClick={toggleTheme}
+            >
+              <svg 
+                stroke="currentColor" 
+                fill="currentColor" 
+                strokeWidth="0" 
+                viewBox="0 0 512 512" 
+                height="19" 
+                width="19" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M401.4 354.2c-2.9.1-5.8.2-8.7.2-47.9 0-93-18.9-126.8-53.4-33.9-34.4-52.5-80.1-52.5-128.8 0-27.7 6.1-54.5 17.5-78.7 3.1-6.6 9.3-16.6 13.6-23.4 1.9-2.9-.5-6.7-3.9-6.1-6 .9-15.2 2.9-27.7 6.8C135.1 95.5 80 168.7 80 255c0 106.6 85.1 193 190.1 193 58 0 110-26.4 144.9-68.1 6-7.2 11.5-13.8 16.4-21.8 1.8-3-.7-6.7-4.1-6.1-8.5 1.7-17.1 1.8-25.9 2.2z"></path>
+              </svg>
+            </button>
+          </div>
         </div>
-        
-        <div className="hidden md:block">
-          <button className="btn-primary">Get Started</button>
-        </div>
-        
-        {/* Mobile menu button */}
-        <button 
-          className="md:hidden text-charcoal"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
-      
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg p-4 flex flex-col space-y-4 animate-fade-in">
-          <a href="#home" className="text-charcoal hover:text-warmOrange transition-colors p-2" onClick={() => setMobileMenuOpen(false)}>Home</a>
-          <a href="#how-it-works" className="text-charcoal hover:text-warmOrange transition-colors p-2" onClick={() => setMobileMenuOpen(false)}>How It Works</a>
-          <a href="#features" className="text-charcoal hover:text-warmOrange transition-colors p-2" onClick={() => setMobileMenuOpen(false)}>Features</a>
-          <a href="#testimonials" className="text-charcoal hover:text-warmOrange transition-colors p-2" onClick={() => setMobileMenuOpen(false)}>Testimonials</a>
-          <button className="btn-primary w-full" onClick={() => setMobileMenuOpen(false)}>Get Started</button>
-        </div>
-      )}
-    </nav>
+    </div>
   );
 };
 
