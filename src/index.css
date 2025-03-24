@@ -48,7 +48,11 @@
 
   /* Custom classes */
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl;
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    @apply bg-white/90 shadow-2xl border-white/30;
   }
 
   .section-padding {
@@ -62,23 +66,40 @@
   /* Animation triggers */
   .animate-on-scroll {
     opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
 
   .animate-on-scroll.animated {
-    @apply animate-fade-in;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* Button styles */
   .btn-primary {
     @apply bg-warmOrange text-white px-6 py-3 rounded-full font-medium 
            shadow-lg hover:shadow-xl transition-all duration-300 
-           transform hover:scale-[1.02] active:scale-[0.98];
+           transform hover:scale-[1.02] active:scale-[0.98] hover:bg-[#FF5A20];
   }
 
   .btn-secondary {
     @apply bg-transparent text-charcoal border-2 border-softGray px-6 py-3 
            rounded-full font-medium hover:bg-softGray/20 transition-all 
-           duration-300;
+           duration-300 hover:border-warmOrange/30;
+  }
+
+  /* Text animations */
+  .animated-text {
+    @apply relative inline-block;
+  }
+
+  .animated-text::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-warmOrange transition-all duration-300;
+  }
+
+  .animated-text:hover::after {
+    @apply w-full;
   }
 }
 
@@ -86,5 +107,32 @@
 @layer utilities {
   .clip-path-slant {
     clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+  }
+  
+  /* Enhanced animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-10px) rotate(1deg); }
+  }
+  
+  @keyframes pulse-subtle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+  
+  .animate-pulse-subtle {
+    animation: pulse-subtle 3s ease-in-out infinite;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+  
+  .hover-rotate {
+    @apply transition-transform duration-300 hover:rotate-3;
   }
 }
