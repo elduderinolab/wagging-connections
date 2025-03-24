@@ -57,7 +57,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <Mail size={18} className="text-warmOrange" />
-                <a href="mailto:support@matchmypup.com" className="text-charcoal/70 hover:text-warmOrange transition-colors">support@matchmypup.com</a>
+                <a href="mailto:matchmypup.info@gmail.com" className="text-charcoal/70 hover:text-warmOrange transition-colors">matchmypup.info@gmail.com</a>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={18} className="text-warmOrange" />

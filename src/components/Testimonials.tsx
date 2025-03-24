@@ -51,18 +51,23 @@ const testimonials: Testimonial[] = [
   }
 ];
 
-const Testimonials = () => {
+const Testimonials = React.memo(() => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const testimonialsRef = useRef<HTMLDivElement>(null);
-  
+  const intervalRef = useRef<NodeJS.Timeout>();
+
   useEffect(() => {
     if (!isPaused) {
-      const interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         setActiveIndex((prev) => (prev + 1) % testimonials.length);
       }, 5000);
       
-      return () => clearInterval(interval);
+      return () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+      };
     }
   }, [isPaused]);
   
@@ -221,6 +226,6 @@ const Testimonials = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Testimonials;

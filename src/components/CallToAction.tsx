@@ -40,19 +40,24 @@ const CallToAction = () => {
         className="max-w-4xl mx-auto glass-card p-12 md:p-16 text-center animate-on-scroll"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-charcoal mb-6">
-          Join thousands of dog owners finding the perfect match for their pup!
+          Be the first to experience the future of dog connections!
         </h2>
         
         <p className="text-lg text-charcoal/70 mb-8 max-w-2xl mx-auto text-balance">
-          Create your profile today and start connecting with other dog lovers in your area. Your pup's new best friend is just a swipe away!
+          Join our exclusive waitlist today and be among the first to connect with other dog lovers in your area when we launch. Your pup's new best friend is waiting!
         </p>
         
-        <button className="btn-primary mx-auto flex items-center gap-2 group px-8 py-4 text-lg">
-          Get Started Now
+        <a 
+          href="https://forms.gle/68enWAyJUMiWj6oR8"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary mx-auto flex items-center gap-2 group px-8 py-4 text-lg no-underline"
+        >
+          Get Waitlisted Now
           <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-        </button>
+        </a>
         
-        <p className="mt-6 text-lightGray">No credit card required • Free to join</p>
+        <p className="mt-6 text-lightGray">Early access • Priority features • No credit card required</p>
       </div>
     </section>
   );

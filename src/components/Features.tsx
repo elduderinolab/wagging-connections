@@ -2,26 +2,38 @@
 import React, { useEffect, useRef } from 'react';
 import { Sparkles, Shield, Users, Heart, Clock, MapPin } from 'lucide-react';
 
-const Features = () => {
+const Features = React.memo(() => {
   const featuresRef = useRef<HTMLDivElement>(null);
+  const observerRef = useRef<IntersectionObserver>();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animated');
+            const target = entry.target as HTMLElement;
+            target.style.transform = 'translateY(0)';
+            target.style.opacity = '1';
+            observerRef.current?.unobserve(target);
           }
         });
       },
       { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
     );
     
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    elements.forEach((el) => observer.observe(el));
+    const elements = document.querySelectorAll<HTMLElement>('.animate-on-scroll');
+    elements.forEach((el) => {
+      el.style.transform = 'translateY(20px)';
+      el.style.opacity = '0';
+      el.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+      el.style.willChange = 'transform, opacity';
+      observerRef.current?.observe(el);
+    });
     
     return () => {
-      elements.forEach((el) => observer.unobserve(el));
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
     };
   }, []);
 
@@ -104,6 +116,6 @@ const Features = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Features;
