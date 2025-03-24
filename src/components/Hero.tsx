@@ -1,8 +1,10 @@
 
 import React, { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subheadlineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -25,6 +27,10 @@ const Hero = () => {
     }, 400);
   }, []);
 
+  const handleHeadingClick = () => {
+    navigate('/about');
+  };
+
   return (
     <section id="home" className="min-h-screen flex items-center relative pt-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-softGray/20 to-white -z-10"></div>
@@ -37,7 +43,8 @@ const Hero = () => {
         <div className="flex flex-col justify-center space-y-8">
           <h1 
             ref={headlineRef}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-charcoal opacity-0 text-balance"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-charcoal opacity-0 text-balance text-center cursor-pointer transition-transform hover:scale-105 hover:text-warmOrange"
+            onClick={handleHeadingClick}
           >
             Find the Perfect Match for Your Pup <span className="text-warmOrange">🐶</span>
           </h1>
